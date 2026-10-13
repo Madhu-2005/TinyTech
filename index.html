@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LittleTech - My First Computer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">🌈 LittleTech</div>
+      <button class="sound-btn" id="soundBtn" onclick="toggleVoice()">
+        🔊 Voice On
+      </button>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="screen active">
+        <div class="hero">
+          <div class="robot hero-robot" id="heroRobot">🤖</div>
+          <div class="hero-content">
+            <span class="eyebrow">LEARN • PLAY • GROW</span>
+            <h1>My First Computer!</h1>
+            <p>Learn with your friendly robot buddy.</p>
+            <button class="primary-btn" onclick="startLearning()">
+              🚀 Let's Start!
+            </button>
+            <button class="listen-btn" onclick="speakWelcome()">
+              🔊 Hear Welcome
+            </button>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <h2>🌟 Choose Your Adventure</h2>
+          <p>Tap a picture to explore!</p>
+        </div>
+
+        <div class="adventure-grid">
+          <button class="adventure-card pink" onclick="openLesson('mouse')">
+            <span class="card-icon">🖱️</span>
+            <span class="card-title">Mouse</span>
+          </button>
+          <button class="adventure-card blue" onclick="openLesson('keyboard')">
+            <span class="card-icon">⌨️</span>
+            <span class="card-title">Keyboard</span>
+          </button>
+          <button class="adventure-card yellow" onclick="openLesson('colors')">
+            <span class="card-icon">🎨</span>
+            <span class="card-title">Colors</span>
+          </button>
+          <button class="adventure-card green" onclick="openLesson('numbers')">
+            <span class="card-icon">🍎</span>
+            <span class="card-title">Numbers</span>
+          </button>
+          <button class="adventure-card purple" onclick="openLesson('safety')">
+            <span class="card-icon">🛡️</span>
+            <span class="card-title">Stay Safe</span>
+          </button>
+        </div>
+
+        <div class="progress-panel">
+          <div class="progress-top">
+            <span>⭐ Your Learning Journey</span>
+            <span id="homeProgressText">0 / 5</span>
+          </div>
+          <div class="progress-track">
+            <div id="homeProgress" class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LESSONS -->
+      <section id="lesson" class="screen">
+        <button class="back-btn" onclick="goHome()">← Home</button>
+
+        <div class="lesson-heading">
+          <div id="lessonIcon" class="lesson-icon">🖱️</div>
+          <div>
+            <h1 id="lessonTitle">Mouse Adventure</h1>
+            <p id="lessonSubtitle">Let's learn together!</p>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="robot lesson-robot" id="lessonRobot">🤖</div>
+          <div class="speech-bubble" id="speechBubble">
+            Hello, little learner!
+          </div>
+          <button class="listen-btn" onclick="repeatInstruction()">
+            🔊 Repeat Instructions
+          </button>
+
+          <!-- MOUSE ACTIVITY -->
+          <div id="mouseActivity" class="activity hidden">
+            <div class="mouse-visual">🖱️</div>
+            <div class="instruction">Move your real mouse!</div>
+            <div class="mouse-track" id="mouseTrack">
+              <span class="mouse-target">⭐</span>
+            </div>
+            <button class="game-target" onclick="mouseClicked()">
+              👆 Click Me!
+            </button>
+            <p class="small-note">
+              Move your mouse, then click the star button.
+            </p>
+          </div>
+
+          <!-- KEYBOARD ACTIVITY -->
+          <div id="keyboardActivity" class="activity hidden">
+            <div class="instruction">Press the letter A on your keyboard!</div>
+            <div class="big-letter" id="letterDisplay">A</div>
+            <div class="keyboard-visual">
+              <span class="keycap">Q</span>
+              <span class="keycap target-key">A</span>
+              <span class="keycap">S</span>
+              <span class="keycap">D</span>
+            </div>
+            <p id="keyFeedback">Try pressing A on your keyboard.</p>
+          </div>
+
+          <!-- COLORS ACTIVITY -->
+          <div id="colorsActivity" class="activity hidden">
+            <div class="instruction">Find the color the robot says!</div>
+            <div class="color-options">
+              <button
+                class="color-circle red"
+                aria-label="Red"
+                onclick="chooseColor('red')"
+              ></button>
+              <button
+                class="color-circle green"
+                aria-label="Green"
+                onclick="chooseColor('green')"
+              ></button>
+              <button
+                class="color-circle blue"
+                aria-label="Blue"
+                onclick="chooseColor('blue')"
+              ></button>
+              <button
+                class="color-circle yellow"
+                aria-label="Yellow"
+                onclick="chooseColor('yellow')"
+              ></button>
+            </div>
+          </div>
+
+          <!-- NUMBERS ACTIVITY -->
+          <div id="numbersActivity" class="activity hidden">
+            <div class="instruction">How many apples can you see?</div>
+            <div id="appleGroup" class="apple-group">🍎 🍎 🍎</div>
+            <div class="number-options">
+              <button onclick="chooseNumber(1)">1</button>
+              <button onclick="chooseNumber(2)">2</button>
+              <button onclick="chooseNumber(3)">3</button>
+              <button onclick="chooseNumber(4)">4</button>
+            </div>
+          </div>
+
+          <!-- INTERNET SAFETY ACTIVITY -->
+          <div id="safetyActivity" class="activity hidden">
+            <div class="safety-scene">👧🏻 <span>💻</span> ❓</div>
+            <div class="instruction">
+              Someone online asks for your password!
+            </div>
+            <div class="safety-options">
+              <button class="safe-choice" onclick="chooseSafety(true)">
+                🛡️ Tell a trusted adult
+              </button>
+              <button class="unsafe-choice" onclick="chooseSafety(false)">
+                🔑 Share my password
+              </button>
+            </div>
+          </div>
+
+          <div id="lessonFeedback" class="feedback" aria-live="polite"></div>
+
+          <button
+            id="nextLessonBtn"
+            class="primary-btn hidden"
+            onclick="completeLesson()"
+          >
+            ⭐ Next Adventure
+          </button>
+        </div>
+      </section>
+
+      <!-- FINAL CHALLENGE -->
+      <section id="challenge" class="screen">
+        <div class="challenge-hero">
+          <div class="robot">🤖</div>
+          <h1>LittleTech Final Challenge!</h1>
+          <p id="challengeIntro">Let's show what you have learned!</p>
+          <div class="challenge-stars" id="challengeStars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+        </div>
+
+        <div class="challenge-card">
+          <div id="challengeCounter">Challenge 1 of 5</div>
+          <div id="challengeQuestion" class="challenge-question">
+            Find the mouse!
+          </div>
+          <div id="challengeOptions" class="challenge-options"></div>
+          <div id="challengeFeedback" class="feedback" aria-live="polite"></div>
+          <button
+            id="challengeNext"
+            class="primary-btn hidden"
+            onclick="nextChallenge()"
+          >
+            Next ⭐
+          </button>
+        </div>
+      </section>
+
+      <!-- CERTIFICATE -->
+      <section id="certificate" class="screen">
+        <div class="celebration">🎉 🎊 🥳 🎊 🎉</div>
+        <div class="certificate">
+          <div class="certificate-top">🌈 LITTLETECH 🌈</div>
+          <div class="trophy">🏆</div>
+          <h1>Certificate of Achievement</h1>
+          <p>This certificate celebrates</p>
+
+          <input
+            id="childName"
+            class="name-input"
+            type="text"
+            placeholder="Enter child's name (optional)"
+            maxlength="50"
+            aria-label="Child's name"
+          />
+
+          <p>for completing</p>
+          <h2>MY FIRST COMPUTER</h2>
+          <div class="certificate-award">⭐ COMPUTER BEGINNER ⭐</div>
+          <p id="certificateScore">Score: 0 / 5</p>
+          <p class="certificate-message">
+            You did an amazing job! Keep learning!
+          </p>
+          <div class="certificate-footer">
+            <span>🌟 Little Explorer</span>
+            <span>🤖 LittleTech Buddy</span>
+          </div>
+        </div>
+
+        <div class="certificate-actions">
+          <button class="primary-btn" onclick="downloadCertificate()">
+            🖨️ Print / Save PDF
+          </button>
+          <button class="listen-btn" onclick="celebrateAgain()">
+            🔊 Hear Congratulations
+          </button>
+          <button class="back-btn" onclick="restartApp()">🔄 Play Again</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>Made with 💖 for little learners</footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
